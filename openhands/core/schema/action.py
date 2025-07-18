@@ -54,6 +54,10 @@ class ActionType(str, Enum):
     """Logs a thought.
     """
 
+    SLACK = 'slack'
+    """Writes a Slack message.
+    """
+
     FINISH = 'finish'
     """If you're absolutely certain that you've completed your task and have tested your work,
     use the finish action to stop working.

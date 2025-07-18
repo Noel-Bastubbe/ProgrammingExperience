@@ -40,6 +40,8 @@ class ObservationType(str, Enum):
 
     THINK = 'think'
 
+    SLACK = 'slack'
+
     AGENT_STATE_CHANGED = 'agent_state_changed'
 
     USER_REJECTED = 'user_rejected'

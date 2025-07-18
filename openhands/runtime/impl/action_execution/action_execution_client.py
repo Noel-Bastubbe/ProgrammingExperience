@@ -22,6 +22,7 @@ from openhands.events import EventStream
 from openhands.events.action import (
     ActionConfirmationStatus,
     AgentThinkAction,
+    SlackMessageAction,
     BrowseInteractiveAction,
     BrowseURLAction,
     CmdRunAction,
@@ -35,6 +36,7 @@ from openhands.events.action.files import FileEditSource
 from openhands.events.action.mcp import MCPAction
 from openhands.events.observation import (
     AgentThinkObservation,
+    SlackMessageObservation,
     ErrorObservation,
     NullObservation,
     Observation,
@@ -284,6 +286,8 @@ class ActionExecutionClient(Runtime):
             if not action.runnable:
                 if isinstance(action, AgentThinkAction):
                     return AgentThinkObservation('Your thought has been logged.')
+                if isinstance(action, SlackMessageAction):
+                    return SlackMessageObservation('Your message has been sent.')
                 return NullObservation('')
             if (
                 hasattr(action, 'confirmation_state')

@@ -7,6 +7,7 @@ import random
 import shutil
 import string
 import tempfile
+import warnings
 from abc import abstractmethod
 from pathlib import Path
 from types import MappingProxyType
@@ -31,11 +32,13 @@ from openhands.events.action import (
     FileReadAction,
     FileWriteAction,
     IPythonRunCellAction,
+    SlackMessageAction,
 )
 from openhands.events.action.mcp import MCPAction
 from openhands.events.event import Event
 from openhands.events.observation import (
     AgentThinkObservation,
+    SlackMessageObservation,
     CmdOutputObservation,
     ErrorObservation,
     FileReadObservation,
@@ -67,6 +70,8 @@ from openhands.utils.async_utils import (
     call_async_from_sync,
     call_sync_from_async,
 )
+from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
 
 
 def _default_env_vars(sandbox_config: SandboxConfig) -> dict[str, str]:
@@ -853,6 +858,8 @@ fi
         if not action.runnable:
             if isinstance(action, AgentThinkAction):
                 return AgentThinkObservation('Your thought has been logged.')
+            if isinstance(action, SlackMessageAction):
+                return self.writeSlackMessage(action.slack_message)
             return NullObservation('')
         if (
             hasattr(action, 'confirmation_state')
@@ -1013,6 +1020,31 @@ fi
     @property
     def additional_agent_instructions(self) -> str:
         return ''
+
+    # ====================================================================
+    # Slack
+    # ====================================================================
+
+    def writeSlackMessage(self, message: str) -> Observation:
+
+        client = WebClient(token=SLACK_BOT_TOKEN)
+
+        try:
+            with warnings.catch_warnings():
+                warnings.filterwarnings(
+                    "ignore",
+                    category=UserWarning,
+                    module="slack_sdk.*"
+                )
+
+            client.chat_postMessage(
+                channel=CHANNEL_ID,
+                text=message
+            )
+
+            return SlackMessageObservation('Your message has been sent.')
+        except SlackApiError as e:
+            return ErrorObservation('Sending the slack message failed with error: ' + e.response['error'])
 
     def subscribe_to_shell_stream(
         self, callback: Callable[[str], None] | None = None

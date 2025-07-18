@@ -4,6 +4,7 @@ from openhands.events.action.agent import (
     AgentFinishAction,
     AgentRejectAction,
     AgentThinkAction,
+    SlackMessageAction,
     ChangeAgentStateAction,
     RecallAction,
 )

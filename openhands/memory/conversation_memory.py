@@ -17,7 +17,7 @@ from openhands.events.action import (
     FileEditAction,
     FileReadAction,
     IPythonRunCellAction,
-    MessageAction,
+    MessageAction, SlackMessageAction,
 )
 from openhands.events.action.mcp import MCPAction
 from openhands.events.action.message import SystemMessageAction
@@ -32,7 +32,7 @@ from openhands.events.observation import (
     FileEditObservation,
     FileReadObservation,
     IPythonRunCellObservation,
-    UserRejectObservation,
+    UserRejectObservation, SlackMessageObservation,
 )
 from openhands.events.observation.agent import (
     MicroagentKnowledge,
@@ -223,6 +223,7 @@ class ConversationMemory:
             (
                 AgentDelegateAction,
                 AgentThinkAction,
+                SlackMessageAction,
                 IPythonRunCellAction,
                 FileEditAction,
                 FileReadAction,
@@ -486,6 +487,9 @@ class ConversationMemory:
             )
             message = Message(role='user', content=[TextContent(text=text)])
         elif isinstance(obs, AgentThinkObservation):
+            text = truncate_content(obs.content, max_message_chars)
+            message = Message(role='user', content=[TextContent(text=text)])
+        elif isinstance(obs, SlackMessageObservation):
             text = truncate_content(obs.content, max_message_chars)
             message = Message(role='user', content=[TextContent(text=text)])
         elif isinstance(obs, ErrorObservation):

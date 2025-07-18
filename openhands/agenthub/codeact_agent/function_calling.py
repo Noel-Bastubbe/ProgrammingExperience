@@ -16,6 +16,7 @@ from openhands.agenthub.codeact_agent.tools import (
     IPythonTool,
     LLMBasedFileEditTool,
     ThinkTool,
+    SlackMessageTool,
     create_cmd_run_tool,
     create_str_replace_editor_tool,
 )
@@ -29,6 +30,7 @@ from openhands.events.action import (
     AgentDelegateAction,
     AgentFinishAction,
     AgentThinkAction,
+    SlackMessageAction,
     BrowseInteractiveAction,
     CmdRunAction,
     FileEditAction,
@@ -36,7 +38,6 @@ from openhands.events.action import (
     IPythonRunCellAction,
     MessageAction,
 )
-from openhands.events.action.agent import CondensationRequestAction
 from openhands.events.action.mcp import MCPAction
 from openhands.events.event import FileEditSource, FileReadSource
 from openhands.events.tool import ToolCallMetadata
@@ -210,6 +211,12 @@ def response_to_actions(
             # ================================================
             elif tool_call.function.name == CondensationRequestTool['function']['name']:
                 action = CondensationRequestAction()
+
+            # ================================================
+            # SlackMessageAction
+            # ================================================
+            elif tool_call.function.name == SlackMessageTool['function']['name']:
+                action = SlackMessageAction(slack_message=arguments.get('slack_message', ''))
 
             # ================================================
             # BrowserTool

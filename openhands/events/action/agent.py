@@ -69,6 +69,19 @@ class AgentThinkAction(Action):
 
 
 @dataclass
+class SlackMessageAction(Action):
+    """An action where the agent writes a Slack message.
+
+    Attributes:
+        slack_message (str): The agent's slack_message.
+        action (str): The action type, namely ActionType.SLACK.
+    """
+
+    slack_message: str = ''
+    action: str = ActionType.SLACK
+
+
+@dataclass
 class AgentRejectAction(Action):
     outputs: dict = field(default_factory=dict)
     thought: str = ''

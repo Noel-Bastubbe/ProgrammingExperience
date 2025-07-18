@@ -45,6 +45,17 @@ class AgentThinkObservation(Observation):
 
 
 @dataclass
+class SlackMessageObservation(Observation):
+    """The output of a Slack Message action."""
+
+    observation: str = ObservationType.SLACK
+
+    @property
+    def message(self) -> str:
+        return self.content
+
+
+@dataclass
 class MicroagentKnowledge:
     """
     Represents knowledge from a triggered microagent.

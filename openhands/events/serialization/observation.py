@@ -8,6 +8,7 @@ from openhands.events.observation.agent import (
     AgentThinkObservation,
     MicroagentKnowledge,
     RecallObservation,
+    SlackMessageObservation,
 )
 from openhands.events.observation.browse import BrowserOutputObservation
 from openhands.events.observation.commands import (
@@ -46,6 +47,7 @@ observations = (
     UserRejectObservation,
     AgentCondensationObservation,
     AgentThinkObservation,
+    SlackMessageObservation,
     RecallObservation,
     MCPObservation,
     FileDownloadObservation,

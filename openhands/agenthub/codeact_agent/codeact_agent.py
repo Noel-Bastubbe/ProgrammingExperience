@@ -1,3 +1,4 @@
+import copy
 import os
 import sys
 from collections import deque
@@ -22,6 +23,7 @@ from openhands.agenthub.codeact_agent.tools.str_replace_editor import (
     create_str_replace_editor_tool,
 )
 from openhands.agenthub.codeact_agent.tools.think import ThinkTool
+from openhands.agenthub.codeact_agent.tools.slack import SlackMessageTool
 from openhands.controller.agent import Agent
 from openhands.controller.state.state import State
 from openhands.core.config import AgentConfig
@@ -115,7 +117,7 @@ class CodeActAgent(Agent):
                 for model_substr in SHORT_TOOL_DESCRIPTION_LLM_SUBSTRS
             )
 
-        tools = []
+        tools = [SlackMessageTool]
         if self.config.enable_cmd:
             tools.append(create_cmd_run_tool(use_short_description=use_short_tool_desc))
         if self.config.enable_think:
