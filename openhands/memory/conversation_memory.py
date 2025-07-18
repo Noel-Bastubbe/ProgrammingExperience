@@ -17,7 +17,8 @@ from openhands.events.action import (
     FileEditAction,
     FileReadAction,
     IPythonRunCellAction,
-    MessageAction, SlackMessageAction,
+    MessageAction,
+    SlackMessageAction,
 )
 from openhands.events.action.mcp import MCPAction
 from openhands.events.action.message import SystemMessageAction
@@ -32,7 +33,8 @@ from openhands.events.observation import (
     FileEditObservation,
     FileReadObservation,
     IPythonRunCellObservation,
-    UserRejectObservation, SlackMessageObservation,
+    UserRejectObservation,
+    SlackMessageObservation,
 )
 from openhands.events.observation.agent import (
     MicroagentKnowledge,

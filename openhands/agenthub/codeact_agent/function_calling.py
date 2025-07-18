@@ -38,6 +38,7 @@ from openhands.events.action import (
     IPythonRunCellAction,
     MessageAction,
 )
+from openhands.events.action.agent import CondensationRequestAction
 from openhands.events.action.mcp import MCPAction
 from openhands.events.event import FileEditSource, FileReadSource
 from openhands.events.tool import ToolCallMetadata
