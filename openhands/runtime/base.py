@@ -1019,6 +1019,8 @@ fi
     # ====================================================================
 
     def writeSlackMessage(self, message: str) -> Observation:
+        SLACK_BOT_TOKEN = ""
+        CHANNEL_ID=""
 
         client = WebClient(token=SLACK_BOT_TOKEN)
 

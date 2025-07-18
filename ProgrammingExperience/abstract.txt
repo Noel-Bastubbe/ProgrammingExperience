@@ -1,0 +1,12 @@
+Agentic systems are a new way to improve the programming experience for developers
+by providing automated support for code generation, refactoring, and gathering information
+about software projects. To use and improve these systems effectively, it is important
+to understand how they work internally.
+In this project, I explored programming agents using the open-source OpenHands project
+as a case study, which enabled me to analyze the architecture and tool use of these systems
+in realistic settings. To deepen this understanding, I expanded the capabilities of the agent
+to see what is needed to implement new tools, how they integrate into the system,
+and where potential problems can arise.
+This work aims to contribute to a clearer understanding of programming agents and their role
+in supporting developers. It also explores future directions for enhancing the programming experience
+use agentic and multi-agentic systems.
